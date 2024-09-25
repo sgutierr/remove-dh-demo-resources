@@ -45,6 +45,9 @@ exec('oc get namespaces -o json', (error, stdout, stderr) => {
   
     htmlTable += `
         </table>
+       <tr>
+       <input type="button" value="Refresh" onclick="location.reload()">
+       </tr>         
       <h1>Remove cluster resources</h1>
       <form action="/delete" method="post">
         Demo name: <input type="text" name="username" required><br><br>
@@ -55,13 +58,7 @@ exec('oc get namespaces -o json', (error, stdout, stderr) => {
       `;
 
     res.send(`${htmlTable}`
-    //   `
-    //<h1>Eliminar Recursos del Usuario</h1>
-    //<form action="/delete" method="post">
-     //   Nombre de usuario: <input type="text" name="username" required><br><br>
-     //</br></br>   <input type="submit" value="Eliminar Recursos">
-    //</input></form>
-    //`
+
     );
 });
 });
@@ -84,7 +81,7 @@ app.post('/delete', async (req, res) => {
 
 
 
-        res.send(`Se han eliminado los recursos asociados al usuario ${username}.`);
+        res.send(`Se han eliminado los recursos asociados al usuario ${username}. <tr><input type="button" value="Back" onclick="window.history.back()"> </tr> `);
     } catch (error) {
         console.error(error);
         res.status(500).send('Ocurrió un error al eliminar los recursos.');
